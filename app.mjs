@@ -1,5 +1,6 @@
 import express from "express";
 import connectionPool from "./utils/db.mjs";
+import { validateCreatePostData } from "./middlewares/post.validation.mjs"
 
 const app = express();
 const port = 4000;
@@ -21,7 +22,7 @@ app.get("/profiles", (req, res) => {
 });
 // Express Assignment
 
-app.post("/posts", async (req, res) => {
+app.post("/posts", [validateCreatePostData], async (req, res) => {
     // ลอจิกในการเก็บข้อมูลของโพสต์ลงในฐานข้อมูล
 
     // 1) Access ข้อมูลใน Body จาก Request ด้วย req.body
